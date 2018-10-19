@@ -46,11 +46,11 @@ function emcee($data){
    // 获取音频url
    $voice_path = NULL;
    if($language == "国")
-      $voice_path = RADIO_DIR_PATH."/mandarin.mp3";
+      $voice_path = RADIO_DIR_PATH."/Chinese/".mt_rand(1,41).".mp3";
    elseif($language == "粤")
-      $voice_path = RADIO_DIR_PATH."/cantonese.mp3";
+      $voice_path = RADIO_DIR_PATH."/Cantonese/".mt_rand(1,13).".mp3";
    elseif($language == "英")
-      $voice_path = RADIO_DIR_PATH."/english.mp3";
+      $voice_path = RADIO_DIR_PATH."/English/".mt_rand(1,20).".mp3";
    else{
       feedback(4, "信息错误");
       exit;
