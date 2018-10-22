@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>声音气质报告</title>
+<link href="css/result.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<div id="centerer">
+	    <div id="alertWindow">	
+	    	<img id="alertWindowBg" src="img/alert.png">
+	        <div id="alertMsg"></div>
+	    </div>	
+	</div>
+    <div id="screenshotShow">
+    	长按下方截图保存
+    	<img id="screenshot">
+    </div>
+
+    <div id="main">
+    	<img id="result-bg" src="img/resultFrameBg.png">
+    	<div id="result">
+    		<div id="title">
+    			<div id="name">获取名称中...</div>
+    			<div id="subtitle">——专属声音气质报告</div>
+    		</div>
+    		<div class="field">
+    			<div class="key">音色特质：</div>
+    			<div id="tone" class="value"></div>
+    		</div>
+    		<div class="field">
+    			<div class="key">心动指数：</div>
+    			<div id="heart" class="value">
+    				<img id="heart1" class="heart" src="img/heartOff.png">
+    				<img id="heart2" class="heart" src="img/heartOff.png">
+    				<img id="heart3" class="heart" src="img/heartOff.png">
+    				<img id="heart4" class="heart" src="img/heartOff.png">
+    				<img id="heart5" class="heart" src="img/heartOff.png">
+    			</div>
+    		</div>
+    		<div class="field">
+	    		<div class="key" style="height:20px;">分析报告：</div>
+    			<div id="desc" class="value-desc"></div>
+    		</div>	
+			<img id="voice" src="img/voice.png">
+			<img id="pointer" src="img/pointer.png">
+		</div>
+		<img id="save" src="img/save.png">
+    	<img id="result-out" src="img/resultFrameOut.png">
+    </div>
+	<img id="bottom" src="img/bottom2.png">
+
+	<script src="js/lib/jquery-3.2.1.min.js"></script>
+	<script src="js/lib/html2canvas.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/result.js"></script>
+</body>
+</html>

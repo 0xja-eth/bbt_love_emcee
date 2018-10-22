@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>声音气质报告</title>
+<link href="css/index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+	<div id="centerer">
+	    <div id="alertWindow">	
+	    	<img id="alertWindowBg" src="img/alert.png">
+	        <div id="alertMsg"></div>
+	    </div>	
+	</div>
+
+	<img id="title" src="img/title.png">
+    <div id="main">
+    	<img id="frame-img" src="img/frame.png">
+    	<div id="frame">
+	    	<div class="field">
+	    		<div id="name-frame">
+	    			<input id="name" type="text" placeholder="请输入你的昵称" maxLength="12" spellcheck="false">
+	    		</div>
+	    	</div>
+	    	<div id="sex" class="field">
+	    		<div class="key">性别</div>
+	    		<div id="sex-girl" class="button-frame sex-button-frame">
+	    			<img class="button-image" src="img/sexGirl.png">
+	    		</div>
+	    		<div id="sex-boy" class="button-frame sex-button-frame">
+	    			<img class="button-image" src="img/sexBoy.png">
+	    		</div>
+	    	</div>
+	    	<div id="lang" class="field">
+	    		<div class="key">偏好语种</div>
+	    		<div id="lang-eng" class="button-frame lang-button-frame">
+	    			<img class="button-image" src="img/langEng.png">
+	    		</div>
+	    		<div id="lang-con" class="button-frame lang-button-frame">
+	    			<img class="button-image" src="img/langCon.png">
+	    		</div>
+	    		<div id="lang-chi" class="button-frame lang-button-frame">
+	    			<img class="button-image" src="img/langChi.png">
+	    		</div>
+	    	</div>
+
+	        <div class="field">
+	        	<div id="next-over">
+	        		<img id="next" src="img/enterButton.png">
+	        	</div>
+	        	<!--button id="next">5秒鉴定你的声音气质</button-->
+	        </div>
+    	</div>
+    </div>
+	<img id="bottom" src="img/bottom.png">
+
+	<script src="js/lib/jquery-3.2.1.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
