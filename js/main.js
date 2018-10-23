@@ -34,11 +34,16 @@ var langSels = [{
 }];
 
 function init () {
-	initEventListeners();
+	initInputSetting();
+	initEvents();
 	initSelection();
 }
 
-function initEventListeners () {
+function initInputSetting () {
+	document.body.style.height = document.body.clientHeight+'px';
+	nameInput.style.display = 'block';
+}
+function initEvents () {
 	initSels();
 	initOthers();
 }
