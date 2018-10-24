@@ -48,7 +48,7 @@ function onRecordFinished() {
 }
 function changeRecordImg(index, rIndex) {
     if(!recording || recordIndex!=rIndex) return;
-    recordImg.src = (index>=0 ? 'img/recording'+index+'.png' : 'img/recordButton.png');
+    recordImg.src = (index>=0 ? 'img/recording0.png' : 'img/recordButton.png');
     if(index>=5){
         pushRecording();
         recording = false;
@@ -88,8 +88,8 @@ function cookieCheck(){
 }
 function initEvents () {
     centerer.addEventListener('click', hideAlert);
-    recordBtn.addEventListener('touchstart', onTouchStart);
-    recordBtn.addEventListener('touchend', onTouchEnd);
+    recordBtn.addEventListener('pointerdown', onTouchStart);
+    recordBtn.addEventListener('pointerup', onTouchEnd);
     recordBtn.oncontextmenu = function(){return false;}
 }
 function initCopywriting(){

@@ -12,10 +12,15 @@ var hearts = [
 ];
 
 var desc = document.getElementById('desc');
+var player = document.getElementById('play-button');
+/*
 var voice = document.getElementById('voice');
 var pointer = document.getElementById('pointer');
+*/
 //var save = document.getElementById('save');
-var bottom = document.getElementById('bottom');
+var bottomField = document.getElementById('bottom-field');
+
+var bottom = document.getElementById('bottom2');
 
 var centerer = document.getElementById('centerer');
 var alertMsg = document.getElementById('alertMsg');
@@ -39,9 +44,8 @@ function init () {
     var now = new Date();
     cookieCheck();
     initData();
-    initData();
-	initEvents();
 	initVoicePlayer();
+    initEvents();
     if(now<startDate) return showAlert('活动未开始！');
     if(now>endDate) return showAlert('活动已结束！');
 }
@@ -61,12 +65,16 @@ function initData () {
 		hearts[i].src = heartPath[(i<heart)?1:0];
 }
 function initEvents () {
-	voice.addEventListener('click',onVoicePlay);
-
-	main.addEventListener('touchstart', onTouchStart);
-	main.addEventListener('touchend', onTouchEnd);    
+    initPlayer();
+    initOthers();
+}
+function initOthers () {
+    main.addEventListener('pointerdown', onTouchStart);
+    main.addEventListener('pointerup', onTouchEnd);    
     main.oncontextmenu = function(){return false;}
 
+    bottomField.addEventListener('pointerdown',onBottomFieldTouchStart);
+    bottomField.addEventListener('pointerup',onBottomFieldTouchEnd);
 
     screenshotShow.addEventListener('click', hideScreenshot);
     centerer.addEventListener('click', hideAlert);
@@ -76,6 +84,12 @@ function initEvents () {
 // 报名按钮
 function gotoRecruit () {
     window.location.replace(recruitPath);
+}
+function onBottomFieldTouchStart(event) {
+    event.stopPropagation();
+}
+function onBottomFieldTouchEnd(event) {
+    event.stopPropagation();
 }
 
 function initVoicePlayer () {
@@ -90,14 +104,19 @@ function onVoicePlay () {
 }
 function play() {
 	voicePlaying = true;	
+    player.src = "img/playButtonPlaying.png";
+    playVoice();
+    /*
 	rotatePointer();
 	setTimeout(activeVoiceRotate,100);
-	setTimeout(playVoice,100);
+	setTimeout(playVoice,100);*/
 }
 function pause() {
 	voicePlaying = false;
+    player.src = "img/playButtonPause.png";
+    /*
 	stopPointer();
-	deactiveVoiceRotate();
+	deactiveVoiceRotate();*/
 	pauseVoice();
 }
 function rotatePointer () {
@@ -231,3 +250,63 @@ function screenShot(targetDom,cb){/*
 }
 
 window.addEventListener('load',init);
+// Voice Core
+var progressAdjusting = false;
+
+var progressBg = document.getElementById('progress-bg');
+var progressBar = document.getElementById('progress-bar');
+var progressBall = document.getElementById('progress-ball');
+
+function initPlayer () {
+    player.addEventListener('click',onVoicePlay);
+    voicePlayer.addEventListener('timeupdate',onVoiceProgress);
+
+    //progressBg.addEventListener('click',changeProgress);
+
+
+    progressBg.addEventListener('pointerdown',onProgressTouchStart);
+    progressBg.addEventListener('pointermove',onProgressTouchMove);
+    progressBg.addEventListener('pointerout',onProgressTouchOut);
+    progressBg.addEventListener('pointerup',onProgressTouchEnd);
+}
+
+function onVoiceProgress(event) {
+    if(progressAdjusting) return;
+    var currentPos = voicePlayer.currentTime; 
+    var maxduration = voicePlayer.duration;
+    var percentage = 100 * currentPos / maxduration; 
+    setVoiceProgressBar(percentage);
+}
+function onProgressTouchStart(event) {
+    event.stopPropagation();
+    progressAdjusting = true;
+}
+function onProgressTouchMove(event) {
+    if(progressAdjusting){
+        changeProgress(event);
+    }
+}
+function onProgressTouchOut(event) {
+    if(progressAdjusting){     
+        progressAdjusting = false;
+    }
+}
+function onProgressTouchEnd(event) {
+    event.stopPropagation();
+    if(progressAdjusting){        
+        progressAdjusting = false;
+        changeProgress(event);
+    }
+}
+function changeProgress(event) {
+    var max = progressBg.offsetWidth;
+    var rate = event.offsetX / max;
+    setVoiceProgress(rate);
+}
+function setVoiceProgress(percentage) {
+    voicePlayer.currentTime = voicePlayer.duration*percentage;
+    setVoiceProgressBar(percentage*100)
+}
+function setVoiceProgressBar(percentage) {
+    progressBar.style.width = percentage+'%';
+}

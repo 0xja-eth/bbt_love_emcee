@@ -15,8 +15,7 @@ html{
 body {
 	max-width: 360px;
 	font-family: "Microsoft Yahei";
-	background-color: #2b2033;
-	background-image: url(../img/lightBackground.png);
+	background-color: rgb(44,32,52);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -61,13 +60,13 @@ img{
 	    	top: 30%;
     		width: 80%;
 	    	left: 10%;
-		    color: black;
+		    color: white;
 	    }
 
 #main{
 	position: relative;
 	width: 100%;
-	margin-top: 15%;
+	margin-top: 10%;
 	margin-left: auto;
 	margin-right: auto;
 	/*
@@ -82,19 +81,25 @@ img{
 	}
 	#copywriting{
 		position: absolute;
-		font-size: 16px;
-		font-weight: bold;
-		top: 29.0%;
-		left: 19.9%;
-		right: 19.9%;
-		bottom: 26.0%;
+		font-size: 18px;
+		/*font-weight: bold;*/
+		top: 40%;
+		left: 18%;
+		right: 18%;
+		bottom: 23%;
+		color: white;
+	}
+	#copywriting-reco{
+		position: absolute;
+		font-size: 18px;
+		bottom: 23%;
+		right: 18%;
+		color: white;
 	}
 #record{
-	position: absolute;
+	/*position: absolute;*/
 	width: 100%;
-	height: 36%;
-	left: 0;
-	bottom: 18%;
+	margin-top: -20%;
     text-align: center;
 }
 	#record-over{
@@ -105,6 +110,9 @@ img{
 	}
 	#record-img{
 		height: 100%;
+		margin-top: 10%;
+		max-width: 250px;
+		max-height: 250px;
 		pointer-events: none;
 	}
 	.record-img-preload{
@@ -112,11 +120,31 @@ img{
 	}
 	@media screen and (max-width: 340px){
 		/*#record{width: 60%;}*/
-		#copywriting{font-size: 14px;}
+		#copywriting{font-size: 16px;}
+		#copywriting-reco{font-size: 16px;}
 	}
 	@media screen and (max-width: 320px){
 		/*#record{width: 65%;}*/
-		#copywriting{font-size: 13px;}
+		#copywriting{font-size: 15px;}
+		#copywriting-reco{font-size: 15px;}
+	}
+	@media screen and (max-height: 525px){
+		/*#record{width: 65%;}*/
+		#main{margin-top: 5%;}
+	}
+	@media screen and (max-height: 500px){
+		/*#record{width: 65%;}*/
+		#main{margin-top: 0;}
+	}
+	@media screen and (max-height: 475px){
+		/*#record{width: 65%;}*/
+		#main{margin-top: -5%;}
+		#record-img{margin-top: 7.5%;}
+	}
+	@media screen and (max-height: 450px){
+		/*#record{width: 65%;}*/
+		#main{margin-top: -10%;}
+		#record-img{margin-top: 5%;}
 	}
 #bottom{
 	position: fixed;
