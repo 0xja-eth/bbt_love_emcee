@@ -18,7 +18,7 @@ var voice = document.getElementById('voice');
 var pointer = document.getElementById('pointer');
 */
 //var save = document.getElementById('save');
-var bottomField = document.getElementById('bottom-field');
+var progressCtl = document.getElementById('progress-controller');
 
 var bottom = document.getElementById('bottom2');
 
@@ -73,8 +73,8 @@ function initOthers () {
     main.addEventListener('pointerup', onTouchEnd);    
     main.oncontextmenu = function(){return false;}
 
-    bottomField.addEventListener('pointerdown',onBottomFieldTouchStart);
-    bottomField.addEventListener('pointerup',onBottomFieldTouchEnd);
+    progressCtl.addEventListener('pointerdown',onBottomFieldTouchStart);
+    progressCtl.addEventListener('pointerup',onBottomFieldTouchEnd);
 
     screenshotShow.addEventListener('click', hideScreenshot);
     centerer.addEventListener('click', hideAlert);
@@ -151,7 +151,7 @@ function pauseVoice(){
 function onTouchStart(event) {
     if(!shotting) {
         shotting = true; shotIndex++;
-        setTimeout(saveResult.bind(this,shotIndex),1500);
+        setTimeout(saveResult.bind(this,shotIndex),777);
     }
 }
 function onTouchEnd(event) {

@@ -25,12 +25,6 @@ function onTouchStart(event) {
     if(!recording) {
         recording = true;
         recordIndex++;
-        changeRecordImg(0,recordIndex);
-        setTimeout(changeRecordImg.bind(this,1,recordIndex),1000);
-        setTimeout(changeRecordImg.bind(this,2,recordIndex),2000);
-        setTimeout(changeRecordImg.bind(this,3,recordIndex),3000);
-        setTimeout(changeRecordImg.bind(this,4,recordIndex),4000);
-        setTimeout(changeRecordImg.bind(this,5,recordIndex),5000);
         startRecording();
     }
 }
@@ -50,10 +44,10 @@ function changeRecordImg(index, rIndex) {
     if(!recording || recordIndex!=rIndex) return;
     recordImg.src = (index>=0 ? 'img/recording0.png' : 'img/recordButton.png');
     if(index>=5){
+        showAlert('上传结果中，请等待...');
         pushRecording();
         recording = false;
         recordUploading = true;
-        showAlert('上传结果中，请等待...');
     }
 }
 
@@ -139,33 +133,38 @@ function startUserMedia(stream) {
 }
 
 function startRecording() {
-    recorder && recorder.record();
-    __log('Recording...');
+    //recorder && recorder.record();
+    wx.startRecord({
+        success: function(){
+            changeRecordImg(0,recordIndex);
+            setTimeout(changeRecordImg.bind(this,1,recordIndex),1000);
+            setTimeout(changeRecordImg.bind(this,2,recordIndex),2000);
+            setTimeout(changeRecordImg.bind(this,3,recordIndex),3000);
+            setTimeout(changeRecordImg.bind(this,4,recordIndex),4000);
+            setTimeout(changeRecordImg.bind(this,5,recordIndex),5000);
+            __log('Recording...');
+        },
+        fail: function(){
+            showAlert('无法录音！');
+        }
+    });
 }
 function stopRecording() {
-    recorder && recorder.stop();
+    //recorder && recorder.stop();
+    wx.stopRecord();
     __log('Stopped recording.');
-    recorder.clear();
-}
-
-function createDownloadLink() {
-    recorder && recorder.exportWAV(function(blob) {
-        var url = URL.createObjectURL(blob);
-        var li = document.createElement('li');
-        var au = document.createElement('audio');
-        var hf = document.createElement('a');
-          
-        au.controls = true;
-        au.src = hf.href = url;
-        hf.download = new Date().toISOString() + '.wav';
-        hf.innerHTML = hf.download;
-        li.appendChild(au);
-        li.appendChild(hf);
-        recordingslist.appendChild(li);
-    });
+    //recorder.clear();
 }
 
 function pushRecording() {
+    name = getCookie('emcee_name');
+    sex = getCookie('emcee_sex');
+    language = getCookie('emcee_lang');
+    $.post(recordPath,{name, sex, language}, 
+        //post成功后的回调函数
+        onPushFinished, 'json'
+    );
+    /*
     recorder && recorder.exportWAV(function(blob) {
         var reader = new FileReader(); 
         reader.readAsDataURL(blob);   
@@ -179,8 +178,8 @@ function pushRecording() {
                 onPushFinished, 'json'
             );
         }
-    });
-}
+    });*/
+}/*
 function initRecord() {
     try {
         // webkit shim
@@ -200,4 +199,26 @@ function initRecord() {
         __log('No live audio input: ' + e);
         showAlert('无法录音！换个浏览器试试吧QAQ');
     });
-};
+};*/
+
+function initRecord() {
+    var url = encodeURIComponent(location.href);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','https://hemc.100steps.net/2017/wechat/Home/Public/getJsApi');
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.send('url='+url);
+    xhr.onreadystatechange = function(){
+        if(xhr.status == 200 && xhr.readyState == 4){
+            var data = JSON.parse(xhr.response);
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: data.appId, // 必填，公众号的唯一标识
+                timestamp: data.timestamp, // 必填，生成签名的时间戳
+                nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                signature: data.signature,// 必填，签名，见附录1
+                jsApiList: ['startRecord','stopRecord'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });
+            error = false;
+        }
+    }
+}
