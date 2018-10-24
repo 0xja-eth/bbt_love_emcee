@@ -1,7 +1,5 @@
 <?php
-
 include_once("conn.php");
-
 header('Content-type: application/json');
 function emcee($data){
    if(time() < START_TIME){
@@ -16,12 +14,12 @@ function emcee($data){
    $name = $data['name'];
    $sex = $data['sex'];
    $language = $data['language'];
-   $voice = $data['voice'];
+   //$voice = $data['voice'];
    
+   // 更新： 取消录音   
    // 保存录音，暂时无用   
-   $record_path = "../record/".time().".wav";
-   file_put_contents($record_path, base64_decode($voice));
-
+   //$record_path = "../record/".time().".wav";
+   //file_put_contents($record_path, base64_decode($voice));
    $tone = NULL;
    $description = NULL;
    
@@ -42,7 +40,6 @@ function emcee($data){
    
    $tone = $row['tone'];
    $description = $row['description'];
-
    // 获取音频url
    $voice_path = NULL;
    if($language == "国")
@@ -55,10 +52,8 @@ function emcee($data){
       feedback(4, "信息错误");
       exit;
    }
-
    // 随机星星指数
    $stars = mt_rand(3, 5);
-
    $result = [
       "name" => $name,
       "tone" => $tone,
@@ -71,8 +66,6 @@ function emcee($data){
       "data" => $result
    ]);
 }
-
-
 if($_POST){
    emcee($_POST);
 }
